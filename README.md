@@ -19,3 +19,6 @@ docker compose up
 ```
 docker compose down -v
 ```
+
+## Swagger
+Ir a `http://localhost:3000/api-docs` para ver la documentación de los endpoints.
