@@ -4,6 +4,7 @@ const cors = require('cors');
 const authRoutes = require('./routes/auth.routes');
 const productRoutes = require('./routes/products.routes');
 const sequelize = require('./config/db');
+const { swaggerUi, swaggerSpec } = require('./config/swagger');
 require('dotenv').config()
 
 const port = process.env.PORT
@@ -17,6 +18,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Rutas
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
+
+// Swagger
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 async function connectWithRetry() {
     let retries = 5;
