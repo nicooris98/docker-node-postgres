@@ -1,13 +1,22 @@
 const express = require('express')
-require('dotenv').config()
+const bodyParser = require('body-parser');
+const cors = require('cors');
 const authRoutes = require('./routes/auth.routes');
+const productRoutes = require('./routes/products.routes');
 const sequelize = require('./config/db');
+require('dotenv').config()
+
 const port = process.env.PORT
 
 const app = express()
-app.use(express.json())
+// Middlewares
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use('/auth', authRoutes); // <== rutas montadas
+// Rutas
+app.use('/api/auth', authRoutes);
+app.use('/api/products', productRoutes);
 
 async function connectWithRetry() {
     let retries = 5;
