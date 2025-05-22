@@ -1,5 +1,8 @@
 # Backend con Docker, Node y Postgres
 
+## Variable de entorno
+Copiar el archivo `.env.template` y renombrarlo como `.env`.
+
 ## Correr aplicación
 ```
 npm run dev
