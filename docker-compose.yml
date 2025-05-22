@@ -1,0 +1,33 @@
+services: 
+  db-project:
+    container_name: ${DB_NAME}
+    image: postgres:13.21-alpine3.20
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - postgres-db-node:/var/lib/postgresql/data
+  app:
+    depends_on:
+      - db-project
+    build:
+      context: .
+      target: ${STAGE}
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app/
+      - /app/node_modules
+    ports:
+      - ${PORT}:${PORT}
+    environment:
+      - PORT=${PORT}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+
+volumes:
+  postgres-db-node:
+    external: false
