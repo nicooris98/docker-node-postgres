@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const { register, login } = require('../controllers/auth.controller');
+const { register, login, getAllUsersController } = require('../controllers/auth.controller');
 
 /**
  * @swagger
- * /auth/register:
+ * /api/auth/register:
  *   post:
  *     summary: Registrar un nuevo usuario
  *     tags: [Auth]
@@ -17,10 +17,13 @@ const { register, login } = require('../controllers/auth.controller');
  *             properties:
  *               username:
  *                 type: string
+ *                 example: test
  *               email:
  *                 type: string
+ *                 example: test@test.com
  *               password:
  *                 type: string
+ *                 example: 123456
  *     responses:
  *       201:
  *         description: Usuario registrado exitosamente
@@ -31,7 +34,7 @@ router.post('/register', register);
 
 /**
  * @swagger
- * /auth/login:
+ * /api/auth/login:
  *   post:
  *     summary: Iniciar sesión de usuario
  *     tags: [Auth]
@@ -48,7 +51,7 @@ router.post('/register', register);
  *               email:
  *                 type: string
  *                 format: email
- *                 example: test@example.com
+ *                 example: test@test.com
  *               password:
  *                 type: string
  *                 format: password
@@ -78,5 +81,37 @@ router.post('/register', register);
  *         description: Error interno del servidor
  */
 router.post('/login', login);
+
+/**
+ * @swagger
+ * /api/auth/all:
+ *   get:
+ *     summary: Obtener todos los usuarios
+ *     tags: [Users]
+ *     responses:
+ *       200:
+ *         description: Lista de usuarios
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: string
+ *                     format: uuid
+ *                   username:
+ *                     type: string
+ *                   email:
+ *                     type: string
+ *                   createdAt:
+ *                     type: string
+ *                     format: date-time
+ *                   updatedAt:
+ *                     type: string
+ *                     format: date-time
+ */
+router.get('/all', getAllUsersController)
 
 module.exports = router;
