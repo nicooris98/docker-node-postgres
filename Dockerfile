@@ -1,6 +1,6 @@
 FROM node:22.16.0-alpine3.21 as dev
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
 COPY package*.json ./
 RUN npm install
