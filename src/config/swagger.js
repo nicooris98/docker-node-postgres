@@ -6,7 +6,7 @@ const options = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'API de tu proyecto',
+      title: 'API del proyecto',
       version: '1.0.0',
       description: 'Documentación con Swagger',
     },
